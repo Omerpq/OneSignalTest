@@ -5,17 +5,15 @@
   <title>OneSignal Minimal Test</title>
   
   <!-- OneSignal SDK for Web Push (latest) -->
-  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.js" async></script>
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>
-  window.OneSignal = window.OneSignal || [];
-  OneSignal.push(function() {
-    OneSignal.init({
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
       appId: "8ced47a8-908e-486c-a11f-d0245f0139c0",
-      autoRegister: true
     });
   });
 </script>
-
 </head>
 <body>
   <h1>OneSignal Minimal Test</h1>

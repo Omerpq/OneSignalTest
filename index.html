@@ -11,13 +11,36 @@
     OneSignal.push(function() {
       OneSignal.init({
         appId: "8ced47a8-908e-486c-a11f-d0245f0139c0",
-        autoRegister: true
+        autoRegister: false // We'll manually request permission with a button
       });
     });
   </script>
 </head>
 <body>
   <h1>OneSignal Minimal Test</h1>
-  <p>If notifications work here, you should see a prompt soon.</p>
+  <p>If notifications work, we'll manually request permission on button click.</p>
+
+  <!-- Our test button -->
+  <button id="requestBtn">Request Notifications</button>
+
+  <script>
+    // When the button is clicked, attempt to call a potential "requestPermission()" method
+    document.getElementById('requestBtn').addEventListener('click', () => {
+      OneSignal.push(async () => {
+        try {
+          // We suspect there might be a method like requestPermission in the new SDK.
+          // We'll see if it exists, and if so, call it.
+          if (OneSignal.Notification && OneSignal.Notification.requestPermission) {
+            const result = await OneSignal.Notification.requestPermission();
+            console.log("requestPermission result:", result);
+          } else {
+            console.log("No requestPermission method found in OneSignal.Notification!");
+          }
+        } catch (error) {
+          console.error("Error requesting permission:", error);
+        }
+      });
+    });
+  </script>
 </body>
 </html>
